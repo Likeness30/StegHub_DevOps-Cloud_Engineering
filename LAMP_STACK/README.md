@@ -150,6 +150,7 @@ Then paste in the bare-bones configuration below:
   CustomLog ${APACHE_LOG_DIR}/access.log combined
 </VirtualHost>
 ```
+![alt text](image/virtualhost.PNG "Virtualhost file")
 
 * 3. Show the new file in sites-available type the code to access the file, if you cannot access it,if you can't,cd into the directory itself
 
