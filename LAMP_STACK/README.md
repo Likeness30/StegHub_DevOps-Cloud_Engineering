@@ -54,34 +54,40 @@ http://13.60.92.28
 ![alt text](image/apache2.png "apache2 default page")
 
 Step 4 - Install MySQL
-# 1. Install a relational database (RDB)
+## 1. Install a relational database (RDB)
 
-`sudo apt install mysql-server`
+```
+sudo apt install mysql-server
+```
 
 Start and enable MariaDB: When prompted, install was confirmed by typing y and then Enter.
 
-# 2. Enable and verify that mysql is running with the commands below
+## 2. Enable and verify that mysql is running with the commands below
 
 ```
 sudo systemctl enable --now mysql
 sudo systemctl status mysql
 ```
 
-# 3. Log in to mysql console
+## 3. Log in to mysql console
 ![alt text](image/mysql_install.png "mysql installation")
 
+```
 sudo -u mysql -p
+```
 
 ![alt text](image/mysql.PNG "inside mysql terminal")
 This opens up the mysql server and the user logs in directly, after logging in, anything can be done, from creating a password to creating tables and a lot more, first you would create a password for the root user The password used is "PassWord.1"
 
+```
 ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'PassWord.1';
 Exit the MySQL shell
+```
 
 exit
 
-Step 3 - Install PHP
-1. Install php PHP is a server-side scripting language designed for web development. It can generate dynamic content and interact with databases. phpinfo(): A built-in PHP function that outputs information about the PHP configuration on the server.
+# Step 3 - Install PHP
+* 1. Install php PHP is a server-side scripting language designed for web development. It can generate dynamic content and interact with databases. phpinfo(): A built-in PHP function that outputs information about the PHP configuration on the server.
 
 The following were installed:
 
@@ -89,33 +95,45 @@ php package
 php-mysql, a PHP module that allows PHP to communicate with MySQL-based databases.
 libapache2-mod-php, to enable Apache to handle PHP files.
 
+```
 sudo apt install php libapache2-mod-php php-mysql
 sudo yum install php php-mysql -y
+```
 
 Restart Apache to apply the PHP configuration
 
+```
 sudo systemctl restart httpd
+```
 
 Test PHP by creating an info.php file
 
+```
 php -v
 echo "<?php phpinfo(); ?>" | sudo tee /var/www/html/info.php
+```
 
 Step 4 - Create a virtual host for the website using Apache
 Created the directory for projectlamp using "mkdir" command
 
+```
 sudo mkdir /var/www/projectlamp
+```
 
 Assign the directory ownership with $USER environment variable which references the current system user.
 
+```
 sudo chown -R $USER:$USER /var/www/projectlamp
-
+```
 2. Create and open a new configuration file in apache’s “sites-available” directory using vim. go into the file created
 
+```
 sudo vim /etc/apache2/sites-available/projectlamp.conf
+```
 
 then paste in the bare-bones configuration below:
 
+```
 <VirtualHost *:80>
   ServerName projectlamp
   ServerAlias www.projectlamp
@@ -124,71 +142,94 @@ then paste in the bare-bones configuration below:
   ErrorLog ${APACHE_LOG_DIR}/error.log
   CustomLog ${APACHE_LOG_DIR}/access.log combined
 </VirtualHost>
+```
 
 3. Show the new file in sites-available type the code to access the file, if you cannot access it,if you can't,cd into the directory itself
 
+```
 sudo ls /etc/apache2/sites-available
+```
 
 Output:
 000-default.conf default-ssl.conf projectlamp.conf
 
 4. Enable the new virtual host
 
+```
 sudo a2ensite projectlamp
+```
 
 5. Disable apache’s default website.
 
+```
 sudo a2dissite 000-default
+```
 
 6. to remove error in configuration run, make sure it does not contain syntax error
 
 The command below was used:
 
+```
 sudo apache2ctl configtest
+```
 
 7. then reload apache for changes to take effect. this is very important
 
+```
 sudo systemctl reload apache2
-
+```
 
 8. The new website is now active but the web root /var/www/projectlamp is still empty. Create an index.html file in this location so to test the virtual host work as expected.
 
+```
 sudo echo 'Hello LAMP from hostname' $(curl -s http://169.254.169.254/latest/meta-data/public-hostname) 'with public IP' $(curl -s http://54.224.231.184/latest/meta-data/public-ipv4) > /var/www/projectlamp/index.html
+```
 
 Step 5 - Enable PHP on the website
 after going through all tose steps, you can now enable the website 
 1. Open the dir.conf file with vim to change the behaviour
 
+```
 sudo vim /etc/apache2/mods-enabled/dir.conf
+```
+2. change the order of the index files to have index.php first
 
+```
 <IfModule mod_dir.c>
   # Change this:
   # DirectoryIndex index.html index.cgi index.pl index.php index.xhtml index.htm
   # To this:
   DirectoryIndex index.php index.html index.cgi index.pl index.xhtml index.htm
 </IfModule>
+```
 
 The correct code would be
 
+```
 index.htm
 
         DirectoryIndex index.php index.html index.cgi index.pl index.xhtml index.htm
 
 index.htm
+```
 
 3. Create a php test script to confirm that Apache is able to handle and process requests for PHP files.
 
 A new index.php file was created inside the custom web root folder.
 
+```
 vim /var/www/projectlamp/index.php
-
+```
 Add the text below in the index.php file
 
+```
 <?php
 phpinfo();
 ?>
-
+```
 4. refresh the page to see the final look image alt image alt remove the content after confirming it successful
 ![alt text](image/final_look.png "php landing page")
 
+```
 sudo rm /var/www/projectlamp/index.php
+```
