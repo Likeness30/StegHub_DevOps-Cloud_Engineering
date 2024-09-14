@@ -66,10 +66,11 @@ sudo systemctl enable --now mysql
 sudo systemctl status mysql
 
 3. Log in to mysql console
+![alt text](image/mysql_install.png "mysql installation")
 
 sudo -u mysql -p
 
-image alt 
+![alt text](image/mysql.PNG "inside mysql terminal")
 This opens up the mysql server and the user logs in directly, after logging in, anything can be done, from creating a password to creating tables and a lot more, first you would create a password for the root user The password used is "PassWord.1"
 
 ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'PassWord.1';
