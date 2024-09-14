@@ -53,6 +53,7 @@ curl http://youripaddress
 
 http://13.60.92.28
 ![alt text](image/apche_install.png "apache2 install")
+![alt text](image/run_apache.PNG " run apache2 ")
 ![alt text](image/apache2.png "apache2 default page")
 
 # Step 4 - Install MySQL
@@ -85,8 +86,9 @@ This opens up the mysql server and the user logs in directly, after logging in, 
 ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'PassWord.1';
 Exit the MySQL shell
 ```
-
+```
 exit
+```
 
 # Step 3 - Install PHP
 * 1. Install php PHP is a server-side scripting language designed for web development. It can generate dynamic content and interact with databases. phpinfo(): A built-in PHP function that outputs information about the PHP configuration on the server.
