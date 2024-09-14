@@ -9,7 +9,7 @@ Prerequisites AWS Account: To access the AWS Management Console. Basic Knowledge
 
 Step 1: Launch an EC2 Instance Log in to your AWS Management Console. Navigate to EC2 under the "Compute" section. Click Launch Instance and follow these steps: Choose an Amazon Machine Image (AMI) Ubuntu 24.04 LTS (HVM) was lunched in the us-east-1 region or any region of your choice Select an instance type (e.g., t2.micro for free-tier eligible). Configure instance settings and choose your VPC/Subnet. Add storage (e.g., 8 GB default is fine). Configure Security Groups to allow traffic on HTTP (port 80), HTTPS (port 443), and SSH (port 22). Launch the instance, and make sure to download the key pair for SSH access.
 
-Step 2: Connect to Your Instance In the EC2 dashboard, select your instance and click Connect.
+# Step 2: Connect to Your Instance In the EC2 dashboard, select your instance and click Connect.
 
 Use an SSH client to connect to your instance: ssh -i /path/to/your-key.pem ec2-user@your-ec2-instance-public-ip
 
@@ -17,23 +17,25 @@ chmod 400 my-ec2-key.pem
 ssh -i "my-ec2-key.pem" ubuntu@54.224.231.184
 Where username=ubuntu and public ip address=54.224.231.184
 
-Step 3 - Install Apache and Update the Firewall
-1. Update and upgrade list of packages in package manager
+# Step 3 - Install Apache and Update the Firewall
+* 1. Update and upgrade list of packages in package manager
 
 sudo apt update
 sudo apt upgrade -y
 ![alt text](image/sudo_apt_update.png "apt update")
 
-2. Run apache2 package installation
+* 2. Run apache2 package installation
 
+``
 sudo apt install apache2 -y
-
+``
 If it green and running, then apache2 is correctly installed use these commands to start and check the status of apache2
 
+```
 sudo apt systemctl start
 sudo apt systemctl status
-
-3. __Allow Apache through the firewall:
+```
+* 3. __Allow Apache through the firewall:
 
 '''
 sudo firewall-cmd --permanent --add-service=http,
@@ -41,20 +43,20 @@ sudo firewall-cmd --permanent --add-service=https,
 sudo firewall-cmd --reload
 '''
 
-4. __Confirm that Apache is working by visiting your EC2 instance's public IP in a browser
+* 4. __Confirm that Apache is working by visiting your EC2 instance's public IP in a browser
 
 curl http://localhost:80
 OR
 curl http://youripaddress
 
-5. Test with the public IP address if the Apache HTTP server can respond to request from the internet using the url on a browser.
+* 5. Test with the public IP address if the Apache HTTP server can respond to request from the internet using the url on a browser.
 
 http://13.60.92.28
 ![alt text](image/apche_install.png "apache2 install")
 ![alt text](image/apache2.png "apache2 default page")
 
-Step 4 - Install MySQL
-## 1. Install a relational database (RDB)
+# Step 4 - Install MySQL
+* 1. Install a relational database (RDB)
 
 ```
 sudo apt install mysql-server
@@ -62,14 +64,14 @@ sudo apt install mysql-server
 
 Start and enable MariaDB: When prompted, install was confirmed by typing y and then Enter.
 
-## 2. Enable and verify that mysql is running with the commands below
+* 2. Enable and verify that mysql is running with the commands below
 
 ```
 sudo systemctl enable --now mysql
 sudo systemctl status mysql
 ```
 
-## 3. Log in to mysql console
+* 3. Log in to mysql console
 ![alt text](image/mysql_install.png "mysql installation")
 
 ```
@@ -113,8 +115,8 @@ php -v
 echo "<?php phpinfo(); ?>" | sudo tee /var/www/html/info.php
 ```
 
-Step 4 - Create a virtual host for the website using Apache
-Created the directory for projectlamp using "mkdir" command
+# Step 4 - Create a virtual host for the website using Apache
+* 1. Created the directory for projectlamp using "mkdir" command
 
 ```
 sudo mkdir /var/www/projectlamp
@@ -125,13 +127,13 @@ Assign the directory ownership with $USER environment variable which references 
 ```
 sudo chown -R $USER:$USER /var/www/projectlamp
 ```
-2. Create and open a new configuration file in apache’s “sites-available” directory using vim. go into the file created
+* 2. Create and open a new configuration file in apache’s “sites-available” directory using vim. go into the file created
 
 ```
 sudo vim /etc/apache2/sites-available/projectlamp.conf
 ```
 
-then paste in the bare-bones configuration below:
+Then paste in the bare-bones configuration below:
 
 ```
 <VirtualHost *:80>
@@ -144,7 +146,7 @@ then paste in the bare-bones configuration below:
 </VirtualHost>
 ```
 
-3. Show the new file in sites-available type the code to access the file, if you cannot access it,if you can't,cd into the directory itself
+* 3. Show the new file in sites-available type the code to access the file, if you cannot access it,if you can't,cd into the directory itself
 
 ```
 sudo ls /etc/apache2/sites-available
@@ -153,19 +155,19 @@ sudo ls /etc/apache2/sites-available
 Output:
 000-default.conf default-ssl.conf projectlamp.conf
 
-4. Enable the new virtual host
+* 4. Enable the new virtual host
 
 ```
 sudo a2ensite projectlamp
 ```
 
-5. Disable apache’s default website.
+* 5. Disable apache’s default website.
 
 ```
 sudo a2dissite 000-default
 ```
 
-6. to remove error in configuration run, make sure it does not contain syntax error
+* 6. to remove error in configuration run, make sure it does not contain syntax error
 
 The command below was used:
 
@@ -173,26 +175,26 @@ The command below was used:
 sudo apache2ctl configtest
 ```
 
-7. then reload apache for changes to take effect. this is very important
+* 7. then reload apache for changes to take effect. this is very important
 
 ```
 sudo systemctl reload apache2
 ```
 
-8. The new website is now active but the web root /var/www/projectlamp is still empty. Create an index.html file in this location so to test the virtual host work as expected.
+* 8. The new website is now active but the web root /var/www/projectlamp is still empty. Create an index.html file in this location so to test the virtual host work as expected.
 
 ```
 sudo echo 'Hello LAMP from hostname' $(curl -s http://169.254.169.254/latest/meta-data/public-hostname) 'with public IP' $(curl -s http://54.224.231.184/latest/meta-data/public-ipv4) > /var/www/projectlamp/index.html
 ```
 
-Step 5 - Enable PHP on the website
+# Step 5 - Enable PHP on the website
 after going through all tose steps, you can now enable the website 
-1. Open the dir.conf file with vim to change the behaviour
+* 1. Open the dir.conf file with vim to change the behaviour
 
 ```
 sudo vim /etc/apache2/mods-enabled/dir.conf
 ```
-2. change the order of the index files to have index.php first
+* 2. change the order of the index files to have index.php first
 
 ```
 <IfModule mod_dir.c>
@@ -213,7 +215,7 @@ index.htm
 index.htm
 ```
 
-3. Create a php test script to confirm that Apache is able to handle and process requests for PHP files.
+* 3. Create a php test script to confirm that Apache is able to handle and process requests for PHP files.
 
 A new index.php file was created inside the custom web root folder.
 
@@ -227,7 +229,7 @@ Add the text below in the index.php file
 phpinfo();
 ?>
 ```
-4. refresh the page to see the final look image alt image alt remove the content after confirming it successful
+* 4. refresh the page to see the final look image alt image alt remove the content after confirming it successful
 ![alt text](image/final_look.png "php landing page")
 
 ```
