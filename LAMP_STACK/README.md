@@ -7,7 +7,8 @@ Static Badge Linux: The operating system that underpins everything. It's reliabl
 
 Prerequisites AWS Account: To access the AWS Management Console. Basic Knowledge of AWS services: EC2, VPC (Virtual Private Cloud), and Security Groups. SSH Client: A tool for connecting to your virtual instance (e.g., Terminal for macOS/Linux, PuTTY or pem for Windows).
 
-# Step 1: Launch an EC2 Instance Log in to your AWS Management Console. Navigate to EC2 under the "Compute" section. Click Launch Instance and follow these steps: Choose an Amazon Machine Image (AMI) Ubuntu 24.04 LTS (HVM) was lunched in the us-east-1 region or any region of your choice Select an instance type (e.g., t2.micro for free-tier eligible). Configure instance settings and choose your VPC/Subnet. Add storage (e.g., 8 GB default is fine). Configure Security Groups to allow traffic on HTTP (port 80), HTTPS (port 443), and SSH (port 22). Launch the instance, and make sure to download the key pair for SSH access.
+# Step 1: Launch an EC2 Instance Log in to your AWS Management Console. Navigate to EC2 under the "Compute" section. 
+* Click Launch Instance and follow these steps: Choose an Amazon Machine Image (AMI) Ubuntu 24.04 LTS (HVM) was lunched in the us-east-1 region or any region of your choice Select an instance type (e.g., t2.micro for free-tier eligible). Configure instance settings and choose your VPC/Subnet. Add storage (e.g., 8 GB default is fine). Configure Security Groups to allow traffic on HTTP (port 80), HTTPS (port 443), and SSH (port 22). Launch the instance, and make sure to download the key pair for SSH access.
 
 # Step 2: Connect to Your Instance In the EC2 dashboard, select your instance and click Connect.
 
