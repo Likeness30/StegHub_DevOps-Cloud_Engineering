@@ -22,8 +22,8 @@ Step 3 - Install Apache and Update the Firewall
 
 sudo apt update
 sudo apt upgrade -y
+![alt text](image/sudo_apt_update.png "apt update")
 
-image alt 
 2. Run apache2 package installation
 
 sudo apt install apache2 -y
@@ -47,8 +47,9 @@ curl http://youripaddress
 
 5. Test with the public IP address if the Apache HTTP server can respond to request from the internet using the url on a browser.
 
-http://54.224.231.184:80
-image alt image alt
+http://13.60.92.28
+![alt text](image/apche_install.png "apache2 install")
+![alt text](image/apache2.png "apache2 default page")
 
 Step 4 - Install MySQL
 1. Install a relational database (RDB)
