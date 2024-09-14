@@ -35,8 +35,8 @@ sudo apt systemctl status
 
 3. __Allow Apache through the firewall:
 
-sudo firewall-cmd --permanent --add-service=http
-sudo firewall-cmd --permanent --add-service=https
+sudo firewall-cmd --permanent --add-service=http,
+sudo firewall-cmd --permanent --add-service=https,
 sudo firewall-cmd --reload
 
 4. __Confirm that Apache is working by visiting your EC2 instance's public IP in a browser
