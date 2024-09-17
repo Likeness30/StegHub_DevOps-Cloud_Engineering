@@ -90,7 +90,7 @@ __3.__ __Access nginx locally on the Ubuntu shell__
 ```
 curl http://13.60.59.105
 ```
-![alt text](images/nginx.2.PNG "nginx landing page")
+![alt text](images/nginx.3.PNG "nginx landing page")
 
 
 __4.__ __Test with the public IP address if the Nginx server can respond to request from the internet using the url on a browser.__
@@ -98,7 +98,6 @@ __4.__ __Test with the public IP address if the Nginx server can respond to requ
 __5.__ __Now, you can visit your instance's public IP to verify that Nginx is working:
 http://13.60.59.105
 You should see the default Nginx welcome page.
-![alt text](images/nginx.2.PNG "Nginx Welcome page")
 
 ## Step 2 - Install MySQL
 __1.__ __Install a relational database (RDB)__
