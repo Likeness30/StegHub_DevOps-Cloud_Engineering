@@ -1,5 +1,5 @@
 # Introduction
-Introduction
+* Introduction
 The MEAN stack is a powerful JavaScript framework used for building modern web applications. MEAN stands for MongoDB, Express.js, AngularJS (or Angular), and Node.js. Each component plays a crucial role in creating a full-stack application that is efficient, scalable, and easy to maintain.
 
 MongoDB
