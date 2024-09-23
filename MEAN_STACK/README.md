@@ -89,7 +89,6 @@ __2.__ __Add the MongoDB repository__
 ```
 echo "deb [ signed-by=/usr/share/keyrings/mongodb-archive-keyring.gpg ] https://repo.mongodb.org/apt/ubuntu jammy/mongodb-org/7.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-7.0.list
 ```
-
 ![alt text](images/add_repo.PNG "Add repo")
 
 __3.__ __Update the package database and install MongoDB__
@@ -100,6 +99,7 @@ sudo apt-get update
 ```
 sudo apt-get install -y mongodb-org
 ```
+![alt text](images/mongo_get.update.PNG "Mongodb")
 ![alt text](images/mongo_install.PNG "Mongodb installation")
 
 __4.__ __Start and enable MongoDB__
