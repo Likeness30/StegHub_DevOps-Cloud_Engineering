@@ -172,5 +172,4 @@ SELECT * FROM test_db.test_table;
 ![alt text](images/created_table.PNG "created table")
 
 
-At this point, this project is successfully complete.
-This deployment is a fully functional MySQL Client-Server set up.
+This project is now successfully completed, resulting in a fully functional MySQL client-server setup.
