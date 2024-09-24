@@ -1,0 +1,34 @@
+Client-side architecture is the way two computers, servers, and applications communicate with one another. In their communication, each machine has its role: the machine sending requests is usually referred to as "Client" and the machine responding (serving) is called "Server".
+
+In this context, the "client" is typically a user's web browser or an application that interacts with a server to request. It can also be said that two or more computers are connected over a network to send and receive requests between one another. resources, display information, and perform user interactions. Here’s a breakdown of what client-side architecture involves
+
+It is easy to see this demonstration by pinging a web or application address from your local host or setting up a client-server architecture using MySQL on AWS EC2.
+
+ping is a command-line utility used to test the reachability of a host (such as a server or website) on a network. It helps to determine if the host is online and the round-trip time for messages sent to the destination.
+
+Trace-route, another option (or tracers on Windows), is a command-line utility that tracks the path packets take to reach a destination. It identifies each hop along the route and the time it takes to get to each hop.
+ It shows the tracing process as the name suggests the time it takes to perform the task and if the site is responding.
+
+In the SQL database, there are different commands to work with like creating a user and granting permissions, which can be specified, for example below,
+
+GRANT ALL PRIVILEGES ON *.* TO 'Rufus'@'%' IDENTIFIED BY 'Password1';
+FLUSH PRIVILEGES;
+
+You can also go into the configuration files of the database to allow or restrict specific IP addresses and specify the port number, without doing this, you won't have specific access to the database depending on what you want to do.  The database is broad and there are a lot of commands to work with.
+
+Enter the configuration files 
+```
+sudo nano /etc/mysql/mysql.conf.d/mysqld.cnf
+```
+
+What to check and add
+
+[mysqld]
+bind-address = 0.0.0.0
+port = 3306
+datadir = /var/lib/mysql
+
+If your database has firewall attached to it, you  will have to put proper settings to allow access, depending on what you want to do
+
+sudo ufw allow 3306/tcp
+sudo ufw reload
