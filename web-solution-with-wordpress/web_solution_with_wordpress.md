@@ -494,6 +494,7 @@ exit;
 
 #### Access the web page again with the Web Server public IP address and install wordpress on the browser
 
+![alt text](images/success.PNG "success")
 ![alt text](images/admin-u.PNG "Admin page")
 ![alt text](images/welcome.PNG "welcome page")
 
