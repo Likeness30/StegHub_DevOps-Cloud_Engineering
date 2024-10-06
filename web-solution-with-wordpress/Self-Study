@@ -1,0 +1,17 @@
+This project has been a wonderful experience. Learning to known how to partition EBS volumes and also debugging errors on a subscription based Linux server which seemed not like an easy route, unlike when using free and open sourced Linux server like Ubuntu, was challenging at first but the more things broke and refused to be fixed, the more i learnt.
+
+A Word Press site is a specialized type of website that makes adding and changing your content, like words, photos, and blog posts easy. It is driven with the help of some tools:
+
+Apache: Undo all your visitors who want to visit your website.
+
+PHP: This is what WordPress uses to run and nice things it does.
+
+MySQL (MariaDB) : Think of this as a giant notebook where WordPress stores everything important, such as your blog posts and settings.
+
+Why Are We Using These Tools?
+
+It is what shows your website to people when they visit your site, therefore apache configuration is important.
+
+WordPress and Apache make your website run, and WordPress can talk to Apache through PHP.
+
+The whole process of creating this took was challenging, exciting and knowledge filled. Can’t wait to see what’s next
