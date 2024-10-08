@@ -477,11 +477,11 @@ sudo yum install httpd -y
 ```
 
 ```bash
-sudo dnf install https://dl.fedoraproject.org/pub/epel/epel-release-latest-9.noarch.rpm
+sudo dnf install https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm
 ```
 
 ```bash
-sudo dnf install dnf-utils http://rpms.remirepo.net/enterprise/remi-release-9.rpm
+sudo dnf install dnf-utils http://rpms.remirepo.net/enterprise/remi-release-8.rpm
 ```
 
 ```bash
@@ -489,7 +489,7 @@ sudo dnf module reset php
 ```
 
 ```bash
-sudo dnf module enable php:remi-8.2
+sudo dnf module enable php:remi-7.4
 ```
 
 ```bash
