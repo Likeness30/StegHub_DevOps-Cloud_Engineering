@@ -589,9 +589,6 @@ __12.__ __Open a browser and access the website using the Web Server public IP a
 #### From Web Server 1
 ![alt text](images/steghub_login.PNG "login")
 
-![alt text](images/adnin.PNG "Admin")
-
-
 ### From Web Server 2
 
 __Disable SELinux__
@@ -605,6 +602,3 @@ SELINUX=disabled
 ![alt text](images/selinux-disable.PNG "SELINUX disable")
 
 __Access the website__
-
-![alt text](images/adnin.PNG "tooling website")
-
