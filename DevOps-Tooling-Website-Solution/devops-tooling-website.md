@@ -40,47 +40,47 @@ __2.__ __Configure Logical volume management on the server__
 ssh -i "my.pem" ec2-user@your-ip
 ```
 
-#### Use ```lsblk``` to inspect what block devices are attached to the server. All devices in Linux reside in /dev/ directory. Inspect with ```ls /dev/``` and ensure all 3 newly created devices are there. Their name will likely be ```xvdf```, ```xvdg``` and ```xvdh```
+#### Use ```lsblk``` to inspect what block devices are attached to the server. All devices in Linux reside in /dev/ directory. Inspect with ```ls /dev/``` and ensure all 3 newly created devices are there. Their name will likely be ```xvdb```, ```xvdc``` and ```xvdd```
 
-```bash
+```
 lsblk
 ```
 ![alt text](images/lsblk-volumes.PNG "Lsbk")
 
 #### Use ```gdisk``` utility to create a single partition on each of the 3 disks
 
-```bash
+```
 sudo gdisk /dev/xvdb
 ```
 ![alt text](images/gdisk-1.PNG "gdisk")
 
-```bash
+```
 sudo gdisk /dev/xvdc
 ```
 ![alt text](images/gdisk-2.PNG "gdisk")
 
-```bash
+```
 sudo gdisk /dev/xvdd
 ```
 ![alt text](images/gdisk-3.PNG "gdisk")
 
 #### Use ```lsblk``` utility to view the newly configured partitions on each of the 3 disks
 
-```bash
+```
 lsblk
 ```
 ![alt text](images/lsbk-mounted.PNG "Partition")
 
 #### Install ```lvm``` package
 
-```bash
+```
 sudo yum install lvm2 -y
 ```
 ![alt text](images/lvm-install.PNG "lvm2")
 
 #### Use ```pvcreate``` utility to mark each of the 3 dicks as physical volumes (PVs) to be used by LVM. Verify that each of the volumes have been created successfully
 
-```bash
+```
 sudo pvcreate /dev/xvdb1 /dev/xvdc1 /dev/xvdd1
 sudo pvs
 ```
@@ -88,7 +88,7 @@ sudo pvs
 
 #### Use ```vgcreate``` utility to add all 3 PVs to a volume group (VG). Name the VG ```webdata-vg```. Verify that the VG has been created successfully
 
-```bash
+```
 sudo vgcreate webdata-vg /dev/xvdb1 /dev/xvdc1 /dev/xvdd1
 sudo vgs
 ```
@@ -96,7 +96,7 @@ sudo vgs
 
 #### Use ```lvcreate``` utility to create 3 logical volume, ```lv-apps```, ```lv-logs``` and ```lv-opt```. Verify that the logical volumes have been created successfully
 
-```bash
+```
 sudo lvcreate -n lv-apps -L 9G webdata-vg
 sudo lvcreate -n lv-logs -L 9G webdata-vg
 sudo lvcreate -n lv-opt -L 9G webdata-vg
@@ -107,18 +107,18 @@ sudo lvs
 
 #### Verify the entire setup
 
-```bash
+```
 sudo vgdisplay -v   #view complete setup, VG, PV and LV
 ```
 ![alt text](images/vg-display.PNG "vgdisplay")
 
-```bash
+```
 lsblk
 ```
 
 #### Use ```mkfs -t xfs``` to format the logical volumes instead of ext4 filesystem
 
-```bash
+```
 sudo mkfs -t xfs /dev/webdata-vg/lv-apps
 sudo mkfs -t xfs /dev/webdata-vg/lv-logs
 sudo mkfs -t xfs /dev/webdata-vg/lv-opt
@@ -127,12 +127,12 @@ sudo mkfs -t xfs /dev/webdata-vg/lv-opt
 
 #### Create mount point on ```/mnt``` directory
 
-```bash
+```
 sudo mkdir /mnt/apps
 sudo mkdir /mnt/logs
 sudo mkdir /mnt/opt
 ```
-```bash
+```
 sudo mount /dev/webdata-vg/lv-apps /mnt/apps
 sudo mount /dev/webdata-vg/lv-logs /mnt/logs
 sudo mount /dev/webdata-vg/lv-opt /mnt/opt
@@ -141,13 +141,13 @@ sudo mount /dev/webdata-vg/lv-opt /mnt/opt
 
 __3.__ __Install NFS Server, configure it to start on reboot and ensure it is up and running__.
 
-```bash
+```
 sudo yum update -y
 sudo yum install nfs-utils -y
 ```
 ![alt text](images/nfs-utils.PNG "nfs-utils")
 
-```bash
+```
 sudo systemctl start nfs-server.service
 sudo systemctl enable nfs-server.service
 sudo systemctl status nfs-server.service
@@ -159,7 +159,7 @@ __4.__ __Export the mounts for Webservers' ```subnet cidr```(IPv4 cidr) to conne
 
 #### Set up permission that will allow the Web Servers to read, write and execute files on NFS.
 
-```bash
+```
 sudo chown -R nobody: /mnt/apps
 sudo chown -R nobody: /mnt/logs
 sudo chown -R nobody: /mnt/opt
@@ -174,7 +174,7 @@ sudo systemctl restart nfs-server.service
 
 #### Configure access to NFS for clients within the same subnet (example Subnet Cidr - 172.31.32.0/20)
 
-```bash
+```
 sudo vi /etc/exports
 
 /mnt/apps 172.31.0.0/20(rw,sync,no_all_squash,no_root_squash)
@@ -189,7 +189,7 @@ sudo exportfs -arv
 
 __5.__ __Check which port is used by NFS and open it using the security group (add new inbound rule)__
 
-```bash
+```
 rpcinfo -p | grep nfs
 ```
 ![alt text](images/port-info.PNG "nfs-port")
@@ -208,13 +208,13 @@ Set the Web Server subnet cidr as the source
 
 #### Access the instance to begin configuration.
 
-```bash
+```
 ssh -i "my.pem" ubuntu@your-ip
 ```
 
 #### Update and upgrade Ubuntu
 
-```bash
+```
 sudo apt update && sudo apt upgrade -y
 ```
 ![alt text](images/db-apt-update.PNG "db apt-update")
@@ -224,14 +224,14 @@ __1.__ __Install MySQL Server__
 
 #### Install mysql server
 
-```bash
+```
 sudo apt install mysql-server
 ```
 ![alt text](images/mysql-install.PNG "mysql-install")
 
 #### Run mysql secure script
 
-```bash
+```
 sudo mysql_secure_installation
 ```
 ![alt text](images/secure-install.PNG "secure-install")
@@ -242,7 +242,7 @@ __3.__ __Create a database user and name it ```webaccess```__
 
 __4.__ __Grant permission to ```webaccess``` user on ```tooling``` database to do anything only from the webservers ```subnet cidr```__
 
-```sql
+```
 sudo mysql
 
 CREATE DATABASE tooling;
@@ -259,7 +259,7 @@ exit
 
 #### Set Bind Address and restart MySQL
 
-```bash
+```
 sudo vi /etc/mysql/mysql.conf.d/mysqld.cnf
 
 sudo systemctl restart mysql
@@ -297,7 +297,7 @@ __1.__ __Launch a new EC2 instance with RHEL Operating System__
 
 __2.__ __Install NFS Client__
 
-```bash
+```
 sudo yum install nfs-utils nfs4-acl-tools -y
 ```
 ![alt text](images/nfs-utils2.PNG "nfs4")
@@ -305,7 +305,7 @@ sudo yum install nfs-utils nfs4-acl-tools -y
 __3.__ __Mount ```/var/www/``` and target the NFS server's export for ```apps```__.
 NFS Server private IP address = 172.31.91.114
 
-```bash
+```
 sudo mkdir /var/www
 sudo mount -t nfs -o rw,nosuid 172.31.91.114:/mnt/apps /var/www
 ```
@@ -315,12 +315,12 @@ __4.__ __Verify that NFS was mounted successfully by running ```df -h```. Ensure
 ![alt text](images/mounted-disk-server1.PNG "mounted-disk")
 
 
-```bash
+```
 sudo vi /etc/fstab
 ```
 
 Add the following line
-```bash
+```
 172.31.91.114:/mnt/apps /var/www nfs defaults 0 0
 ```
 ![alt text](images/fstab-config-file.PNG "fstab")
@@ -328,36 +328,36 @@ Add the following line
 
 __5.__ __Install Remi's repoeitory, Apache and PHP__
 
-```bash
+```
 sudo yum install httpd -y
 ```
 ![alt text](images/remi-repo.PNG "remi-repo")
 
-```bash
+```
 sudo dnf install https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm
 ```
 ![alt text](images/fedora2.PNG "fedoraproject")
 
-```bash
+```
 sudo dnf install dnf-utils http://rpms.remirepo.net/enterprise/remi-release-8.rpm
 ```
 ![alt text](images/remi-repo.PNG "remi-repo")
 
-```bash
+```
 sudo dnf module reset php
 ```
 ![alt text](images/reset-php.PNG "reset php")
 
-```bash
+```
 sudo dnf module enable php:remi-8.2
 ```
 
-```bash
+```
 sudo dnf install php php-opcache php-gd php-curl php-mysqlnd
 ```
 ![alt text](images/php-install.PNG "php-install")
 
-```bash
+```
 sudo systemctl start php-fpm
 sudo systemctl enable php-fpm
 sudo systemctl status php-fpm
@@ -375,7 +375,7 @@ __1.__ __Launch another new EC2 instance with RHEL Operating System__
 
 __2.__ __Install NFS Client__
 
-```bash
+```
 sudo yum install nfs-utils nfs4-acl-tools -y
 ```
 
@@ -389,10 +389,7 @@ sudo mount -t nfs -o rw,nosuid 172.31.91.114:/mnt/apps /var/www
 
 __4.__ __Verify that NFS was mounted successfully by running ```df -h```. Ensure that the changes will persist after reboot.__
 
-<!-- ![mount app](./images/mount-apps-web2.png) -->
-
-
-```bash
+```
 sudo vi /etc/fstab
 ```
 
@@ -404,33 +401,33 @@ Add the following line
 
 __5.__ __Install Remi's repoeitory, Apache and PHP__
 
-```bash
+```
 sudo yum install httpd -y
 ```
 ![alt text](images/httpd_install2.PNG "httpd-install")
 
-```bash
+```
 sudo dnf install https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm
 ```
 
-```bash
+```
 sudo dnf install dnf-utils http://rpms.remirepo.net/enterprise/remi-release-8.rpm
 ``
 
-```bash
+```
 sudo dnf module reset php
 ```
 
-```bash
+```
 sudo dnf module enable php:remi-8.2
 ```
 
-```bash
+```
 sudo dnf install php php-opcache php-gd php-curl php-mysqlnd
 ```
 ![alt text](images/php-install.PNG "php-install")
 
-```bash
+```
 sudo systemctl start php-fpm
 sudo systemctl enable php-fpm
 sudo systemctl status php-fpm
@@ -445,14 +442,14 @@ __1.__ __Launch another new EC2 instance with RHEL Operating System__
 
 __2.__ __Install NFS Client__
 
-```bash
+```
 sudo yum install nfs-utils nfs4-acl-tools -y
 ```
 
 __3.__ __Mount ```/var/www/``` and target the NFS server's export for ```apps```__.
 NFS Server private IP address = 172.31.91.114
 
-```bash
+```
 sudo mkdir /var/www
 sudo mount -t nfs -o rw,nosuid 172.31.91.114:/mnt/apps /var/www
 ```
@@ -460,43 +457,43 @@ sudo mount -t nfs -o rw,nosuid 172.31.91.114:/mnt/apps /var/www
 __4.__ __Verify that NFS was mounted successfully by running ```df -h```. Ensure that the changes will persist after reboot.__
 
 
-```bash
+```
 sudo vi /etc/fstab
 ```
 
 Add the following line
-```bash
+```
 172.31.91.114:/mnt/apps /var/www nfs defaults 0 0
 ```
 ![alt text](images/uudi-config.PNG "fstab config")
 
 __5.__ __Install Remi's repoeitory, Apache and PHP__
 
-```bash
+```
 sudo yum install httpd -y
 ```
 
-```bash
+```
 sudo dnf install https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm
 ```
 
-```bash
+```
 sudo dnf install dnf-utils http://rpms.remirepo.net/enterprise/remi-release-8.rpm
 ```
 
-```bash
+```
 sudo dnf module reset php
 ```
 
-```bash
+```
 sudo dnf module enable php:remi-7.4
 ```
 
-```bash
+```
 sudo dnf install php php-opcache php-gd php-curl php-mysqlnd
 ```
 
-```bash
+```
 sudo systemctl start php-fpm
 sudo systemctl enable php-fpm
 sudo systemctl status php-fpm
@@ -509,12 +506,12 @@ test.txt file was created from Web Server 1, and it was accessible from Web Serv
 
 __7.__ __Locate the log folder for Apache on the Web Server and mount it to NFS server's export for logs. Repeat ```step 4``` to ensure the mount point persists after reboot__.
 
-```bash
+```
 sudo vi /etc/fstab
 ```
 
 Add the following line
-```bash
+```
 172.31.91.114:/mnt/logs /var/log/httpd nfs defaults 0 0
 ```
 
@@ -544,12 +541,12 @@ Acces the website on a browser
 
 - Ensure TCP port 80 is open on the Web Server.
 - If ```403 Error``` occur, check permissions to the ```/var/www/html``` folder and also disable ```SELinux```
-```bash
+```
 sudo setenforce 0
 ```
 To make the change permanent, open selinux file and set selinux to disable.
 
-```bash
+```
 sudo vi /etc/sysconfig/selinux
 
 SELINUX=disabled
@@ -562,25 +559,24 @@ sudo systemctl restart httpd
 __10.__ __Update the website's configuration to connect to the database (in ```/var/www/html/function.php``` file). Apply ```tooling-db.sql``` command__
 ```sudo mysql -h <db-private-IP> -u <db-username> -p <db-password < tooling-db.sql```
 
-```bash
+```
 sudo vi /var/www/html/functions.php
 ```
 
-```sql
-sudo mysql -h 172.31.8.114 -u webaccess -p tooling < tooling-db.sql
+```
+sudo mysql -h 172.31.91.114 -u webaccess -p tooling < tooling-db.sql
 ```
 
 
 #### Access the database server from Web Server
 
-```sql
-sudo mysql -h 172.31.8.114 -u webaccess -p
 ```
-
+sudo mysql -h 172.31.91.114 -u webaccess -p
+```
 
 __11.__ __Create in MyQSL a new admin user with username: ```myuser``` and password: ```password```__
 
-```sql
+```
 INSERT INTO users(id, username, password, email, user_type, status) VALUES (2, 'myuser', '5f4dcc3b5aa765d61d8327deb882cf99', 'user@mail.com', 'admin', '1');
 ```
 
@@ -593,7 +589,7 @@ __12.__ __Open a browser and access the website using the Web Server public IP a
 
 __Disable SELinux__
 
-```bash
+```
 sudo setenforce 0
 
 SELINUX=disabled
