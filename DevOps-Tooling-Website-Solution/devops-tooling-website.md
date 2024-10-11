@@ -372,6 +372,7 @@ sudo setsebool -P httpd_can_network_connect_db=1  # allows the Apache HTTP serve
 ### Web Server 2
 
 __1.__ __Launch another new EC2 instance with RHEL Operating System__
+![alt text](images/server2.PNG "my-2nd-ec2")
 
 __2.__ __Install NFS Client__
 
