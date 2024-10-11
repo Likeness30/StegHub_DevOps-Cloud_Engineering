@@ -1,14 +1,15 @@
-# Creating a DevOps Tooling Website on AWS
-A website is like setting up a house. You need three main things: a space to show the website (the web server), a place to keep all the important information (the database), and somewhere to store extra stuff like photos (storage). AWS gives you tools for each part, like EC2 for showing the website, RDS for keeping the data safe, and S3 for storing files. It’s like building a house with rooms for different tasks: one for living, one for keeping your things, and one for working. AWS helps you put all these rooms together.
+## Creating a DevOps Tooling Website on AWS
+Building a website is like setting up a house. You need three main things: a place to show the website (the web server), somewhere to keep important data (the database), and a spot to store extras like photos (storage). AWS offers tools for each of these, like EC2 for hosting the website, RDS for safely storing data, and S3 for file storage. It's like having different rooms for living, storing stuff, and working, all put together by AWS.
 
-# What is Network-Attached Storage (NAS)?
-NAS is like a shared filing cabinet that everyone in an office can access. If someone needs a file, they can easily grab it or put it back without any hassle. It’s perfect for teams where everyone needs access to the same files, making it super easy to work together. To make this work smoothly, NAS uses tools like NFS or SMB that let computers talk to each other and understand where everything is.
+## What is Network-Attached Storage (NAS)?
+NAS is like a shared filing cabinet that everyone in an office can access. If someone needs a file, they can easily take it or add it back without trouble. It's ideal for teams where everyone needs access to the same files, making teamwork easier. NAS uses systems like NFS or SMB that let computers communicate and understand where files are stored.
 
-# What is Storage Area Network (SAN)?
-SAN is like a super-fast express lane for big businesses to move data quickly. It’s a storage space or a storage cabinet, like a private road that only important computers can use to send or grab huge amounts of data at high speeds. Companies use SAN when they need their storage to work really fast without any delays. It uses iSCSI, which acts like the toll booth, letting only the right computers on the express lane.
+## What is Storage Area Network (SAN)?
+SAN is like a fast private road for companies to move large amounts of data quickly. It's like a special storage system only used by important computers, moving data at high speed. Businesses use SAN when they need storage to work quickly without delays. It uses iSCSI, which acts like a checkpoint, letting only certain computers access the fast lane.
 
-# What is Block-Level Storage?
-Block storage is like cutting up a big file into smaller, manageable pieces. It’s like an external  hard drive or inbuilt hard drive. It saves stuff in blocks, hence the word block storage. When you need the file, it finds all the pieces and puts them back together, just like solving a puzzle. Cloud services like AWS use this for things that need to work quickly, like databases. AWS EBS is a block storage tool, and it’s like having your own virtual hard drive that you can use whenever you need, even though it’s not physically with you.
+## What is Block-Level Storage?
+Block storage works by splitting a large file into smaller pieces called "blocks." It's like using an external or internal hard drive. When you need the file, it finds all the pieces and puts them together like solving a puzzle. Cloud services, such as AWS, use block storage for fast access, especially for things like databases. AWS EBS is a block storage tool, like having your own virtual hard drive that you can access anytime, even though it's not physically with you.
 
-What is Object Storage?
-Object storage is like putting each file in a separate box with a label on it. You don’t break the file into pieces, just store it as a whole. This type of storage is perfect for big things like videos or photos. AWS S3 is an example of object storage. It’s like a huge warehouse where you can easily find whatever you stored because each item has a clear label. This makes it great for storing things long-term.
+## What is Object Storage?
+Object storage is like putting each file in a labeled box. Instead of breaking the file into pieces, it's stored as a whole. This type of storage is great for big files like videos or photos. AWS S3 is an example of object storage. It's like a big warehouse where every item is clearly labeled, making it easy to find and store things for the long term.
+
