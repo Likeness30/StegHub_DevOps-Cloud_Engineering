@@ -323,7 +323,7 @@ Add the following line
 ```
 172.31.93.20:/mnt/apps /var/www nfs defaults 0 0
 ```
-![alt text](images/fstab-config-file.PNG "fstab")
+![alt text](images/fstab-server2.PNG "fstab")
 
 
 __5.__ __Install Remi's repoeitory, Apache and PHP__
