@@ -523,7 +523,7 @@ Add the following line
 172.31.93.20:/mnt/logs /var/log/httpd nfs defaults 0 0
 ```
 
-![alt text](images/fstab-server.PNG "config file")
+![alt text](images/fstab-server4.PNG "config file")
 
 __8.__ __Fork the tooling source code from ```StegHub GitHub Account```__
 
