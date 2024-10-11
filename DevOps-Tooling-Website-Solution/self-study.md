@@ -12,4 +12,3 @@ Block storage works by splitting a large file into smaller pieces called "blocks
 
 ## What is Object Storage?
 Object storage is like putting each file in a labeled box. Instead of breaking the file into pieces, it's stored as a whole. This type of storage is great for big files like videos or photos. AWS S3 is an example of object storage. It's like a big warehouse where every item is clearly labeled, making it easy to find and store things for the long term.
-
