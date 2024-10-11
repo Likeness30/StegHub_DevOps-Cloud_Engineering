@@ -192,7 +192,7 @@ __5.__ __Check which port is used by NFS and open it using the security group (a
 ```
 rpcinfo -p | grep nfs
 ```
-![alt text](images/rpcinfo.PNG"nfs-port")
+![alt text](images/rpcinfo.PNG "nfs-port")
 
 __Note__: For NFS Server to be accessible from the client, the following ports must be opened: TCP 111, UDP 111, UDP 2049, NFS 2049.
 Set the Web Server subnet cidr as the source
