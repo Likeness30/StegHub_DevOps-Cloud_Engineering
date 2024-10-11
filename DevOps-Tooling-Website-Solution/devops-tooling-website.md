@@ -274,7 +274,7 @@ sudo systemctl status mysql
 
 Access to the DB Server is allowed only from the ```Subnet Cidr``` configured as source.
 
-![alt text](images/ "port-3306")
+![alt text](images/port-3306.PNG "port-3306")
 
 
 ## Step 3 - Prepare the Web Servers
